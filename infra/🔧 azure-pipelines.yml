@@ -1,0 +1,28 @@
+trigger: none
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+
+# Step 1 — Login with device code
+- script: |
+    echo "Please complete Azure Login:"
+    az login --use-device-code
+  displayName: "Azure Login (Device Code)"
+
+# Step 2 — Install Terraform
+- script: |
+    sudo apt-get update && sudo apt-get install -y wget unzip
+    wget https://releases.hashicorp.com/terraform/1.7.5/terraform_1.7.5_linux_amd64.zip
+    unzip terraform_1.7.5_linux_amd64.zip
+    sudo mv terraform /usr/local/bin/
+    terraform -version
+  displayName: "Install Terraform"
+
+# Step 3 — Terraform Init/Plan/Apply
+- script: |
+    terraform init
+    terraform plan -out tfplan
+    terraform apply -auto-approve tfplan
+  displayName: "Terraform Deploy"
