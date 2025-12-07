@@ -1,0 +1,18 @@
+# Terraform directories
+.terraform/
+.terraform.lock.hcl
+terraform.tfstate
+terraform.tfstate.backup
+
+# VS Code
+.vscode/
+
+# Python cache
+__pycache__/
+
+# Logs
+*.log
+
+# Output folders
+dist/
+build/
